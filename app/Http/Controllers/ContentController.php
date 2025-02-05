@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreContentRequest;
 use App\Http\Requests\UpdateContentRequest;
+
 use App\Models\Content;
+use App\Models\Entrysheet;
+
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 
 class ContentController extends Controller
 {
@@ -27,9 +32,15 @@ class ContentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreContentRequest $request)
+    public function store(StoreContentRequest $request, Entrysheet $entrysheet)
     {
-        //
+        Content::create([
+            'question' => $request->question,
+            'answer' => $request->answer,
+            'entrysheet_id' => $entrysheet->id,
+        ]);
+
+        return redirect()->route('entrysheet.show', $entrysheet->id)->with('success', '質問と回答が追加されました！');
     }
 
     /**

@@ -11,7 +11,7 @@ class StoreEntrysheetRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class StoreEntrysheetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|string|max:255',
+            'status' => 'required|string|in:下書き,提出済み,書類通過,書類落ち',
+            'deadline' => 'nullable|date',
+            'company_id' => 'required|exists:companies,id',
         ];
     }
 }

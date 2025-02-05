@@ -18,7 +18,6 @@ return new class extends Migration
             $table->text('answer');
             $table->integer('order')->default(0);
             $table->timestamps();
-            $table->unsignedBigInteger('sheet_id');
             $table->softDeletes();
 
             $table->foreign('entrysheet_id')->references('id')->on('entrysheets')->onDelete('cascade');

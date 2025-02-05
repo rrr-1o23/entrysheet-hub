@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Company extends Model
 {
@@ -17,14 +19,19 @@ class Company extends Model
         'mypage',
         'status',
         'process',
-        'industry_id'
+        'industry_id',
+        'user_id',
     ];
 
     /**
      * 業界（Industry）とのリレーション
      */
     public function industry(): BelongsTo {
-        return $this->belongsTo(Industry::class);
+        return $this->belongsTo(Industry::class, 'industry_id');
+    }
+
+    public function owner(): BelongsTo {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     /**
