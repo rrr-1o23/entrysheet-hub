@@ -10,9 +10,9 @@
 
                     <!-- 業界登録ボタン -->
                     <div class="flex flex-wrap px-6">
-                        <button onclick="location.href='{{ route('industry.create') }}'" class="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-500 focus:outline-none">
-                            {{ __("業界を登録") }}
-                        </button>
+                        <a href="{{ route('industry.create') }}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow">
+                            業界を登録
+                        </a>
                     </div>
                 </div>
 

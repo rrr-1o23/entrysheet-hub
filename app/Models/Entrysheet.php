@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Entrysheet extends Model
 {
@@ -21,24 +23,21 @@ class Entrysheet extends Model
     /**
      * 企業（Company）とのリレーション
      */
-    public function company()
-    {
-        return $this->belongsTo(Company::class);
+    public function company(): BelongsTo {
+        return $this->belongsTo(Company::class, 'company_id');
     }
 
     /**
      * ユーザー（User）とのリレーション
      */
-    public function user()
-    {
+    public function owner(): BelongsTo{
         return $this->belongsTo(User::class);
     }
 
     /**
      * コンテンツ（Content）とのリレーション
      */
-    public function contents()
-    {
+    public function contents(): HasMany {
         return $this->hasMany(Content::class);
     }
 }

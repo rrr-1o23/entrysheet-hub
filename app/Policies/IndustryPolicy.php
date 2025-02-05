@@ -13,7 +13,7 @@ class IndustryPolicy
      */
     public function viewAny(User $user): bool
     {
-        return true;
+        return Industry::where('user_id', $user->id)->exists();
     }
 
     /**

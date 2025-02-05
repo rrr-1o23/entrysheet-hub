@@ -13,7 +13,7 @@ class EntrysheetPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->id === $entrysheet->user_id;
     }
 
     /**
@@ -21,7 +21,7 @@ class EntrysheetPolicy
      */
     public function view(User $user, Entrysheet $entrysheet): bool
     {
-        return false;
+        return $user->id === $entrysheet->user_id;
     }
 
     /**
@@ -29,7 +29,7 @@ class EntrysheetPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->id === $entrysheet->user_id;
     }
 
     /**
@@ -37,7 +37,7 @@ class EntrysheetPolicy
      */
     public function update(User $user, Entrysheet $entrysheet): bool
     {
-        return false;
+        return $user->id === $entrysheet->user_id;
     }
 
     /**
@@ -45,7 +45,7 @@ class EntrysheetPolicy
      */
     public function delete(User $user, Entrysheet $entrysheet): bool
     {
-        return false;
+        return $user->id === $entrysheet->user_id;
     }
 
     /**
@@ -53,7 +53,7 @@ class EntrysheetPolicy
      */
     public function restore(User $user, Entrysheet $entrysheet): bool
     {
-        return false;
+        return $user->id === $entrysheet->user_id;
     }
 
     /**

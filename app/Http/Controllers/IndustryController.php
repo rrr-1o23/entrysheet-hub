@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreIndustryRequest;
 use App\Http\Requests\UpdateIndustryRequest;
+
 use App\Models\Industry;
+
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
@@ -46,16 +48,6 @@ class IndustryController extends Controller implements HasMiddleware
      */
     public function store(StoreIndustryRequest $request)
     {
-        // ログインチェック
-        if (!Auth::check()) {
-            return redirect()->route('login')->with('error', 'ログインしてください。');
-        }
-
-        // バリデーション
-        $request->validate([
-            'name' => 'required|string|unique:industries,name|max:255',
-        ]);
-
         // ログインユーザーのIDを設定して業界を保存
         Industry::create([
             'name' => $request->name,

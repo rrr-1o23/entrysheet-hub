@@ -4,15 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreEntrysheetRequest;
 use App\Http\Requests\UpdateEntrysheetRequest;
+
 use App\Models\Entrysheet;
+use App\Models\Company;
+
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+
 
 class EntrysheetController extends Controller implements HasMiddleware
 {
     public function home(Request $request): View{
-        return view('entrysheet.home');
+        $entrysheets = Entrysheet::where('user_id', Auth::id())->with('company')->get();
+        return view('entrysheet.home', compact('entrysheets'));
     }
 
     public static function middleware(): array
@@ -36,7 +42,8 @@ class EntrysheetController extends Controller implements HasMiddleware
      */
     public function create()
     {
-        //
+        $companies = Company::where('user_id', Auth::id())->get();
+        return view('entrysheet.create', compact('companies'));
     }
 
     /**
@@ -44,7 +51,14 @@ class EntrysheetController extends Controller implements HasMiddleware
      */
     public function store(StoreEntrysheetRequest $request)
     {
-        //
+        Entrysheet::create([
+            'title' => $request->title,
+            'status' => $request->status,
+            'deadline' => $request->deadline,
+            'company_id' => $request->company_id,
+            'user_id' => Auth::id(),
+        ]);
+        return redirect()->route('entrysheet')->with('success', 'エントリーシートが登録されました！');
     }
 
     /**
@@ -52,7 +66,8 @@ class EntrysheetController extends Controller implements HasMiddleware
      */
     public function show(Entrysheet $entrysheet)
     {
-        //
+        $entrysheet->load('contents');
+        return view('entrysheet.show', compact('entrysheet'));
     }
 
     /**

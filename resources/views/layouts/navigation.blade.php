@@ -20,11 +20,11 @@
                         {{ __('Industry') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('company')" :active="request()->routeIs('company')">
+                    <x-nav-link :href="route('company')" :active="request()->routeIs('company', 'company.create', 'company.show')">
                         {{ __('Company') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('entrysheet')" :active="request()->routeIs('entrysheet')">
+                    <x-nav-link :href="route('entrysheet')" :active="request()->routeIs('entrysheet', 'entrysheet.create', 'entrysheet.show')">
                         {{ __('Sheets') }}
                     </x-nav-link>
                 </div>
